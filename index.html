@@ -1,1 +1,658 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Анна Грэй | Иллюстратор книг</title>
+  <!-- Google Fonts: изящные шрифты для иллюстратора -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 (free icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
+    body {
+      background-color: #fefaf5;   /* тёплый кремовый фон */
+      font-family: 'Inter', sans-serif;
+      color: #2c2418;
+      line-height: 1.4;
+      scroll-behavior: smooth;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* типографика */
+    h1, h2, h3, .logo {
+      font-family: 'Playfair Display', serif;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+
+    h1 {
+      font-size: clamp(2.8rem, 8vw, 4.2rem);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      color: #2c2418;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      display: inline-block;
+    }
+    h2:after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: #d9b48b;
+      border-radius: 2px;
+    }
+
+    .section {
+      padding: 80px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    .section:last-child {
+      border-bottom: none;
+    }
+
+    /* header / навигация */
+    header {
+      padding: 24px 0;
+      background-color: rgba(254, 250, 245, 0.92);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid #f0e2d4;
+    }
+
+    .header-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    .logo span {
+      color: #b47c4a;
+      font-weight: 400;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 500;
+      color: #2c2418;
+      transition: color 0.2s;
+      font-size: 1rem;
+    }
+    .nav-links a:hover {
+      color: #b47c4a;
+    }
+
+    /* Hero */
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 48px;
+      justify-content: space-between;
+    }
+    .hero-content {
+      flex: 1.2;
+      min-width: 260px;
+    }
+    .hero-tag {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: #b47c4a;
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      margin: 1.5rem 0 2rem;
+      color: #4a3e2e;
+      max-width: 500px;
+    }
+    .btn {
+      display: inline-block;
+      background: #2c2418;
+      color: #fefaf5;
+      padding: 12px 28px;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.25s;
+      border: 1px solid transparent;
+    }
+    .btn:hover {
+      background: #b47c4a;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    }
+    .hero-avatar {
+      flex: 0.8;
+      background: #e9dfd3;
+      border-radius: 40% 60% 30% 70% / 50% 40% 60% 50%;
+      min-width: 220px;
+      aspect-ratio: 1 / 1;
+      background-image: url('https://picsum.photos/id/64/500/500'); /* placeholder атмосферный портрет */
+      background-size: cover;
+      background-position: center 20%;
+      box-shadow: 20px 20px 0 #d9b48b30;
+      transition: 0.2s;
+    }
+
+    /* фильтр портфолио */
+    .filter-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+    .filter-btn {
+      background: transparent;
+      border: 1px solid #d9b48b;
+      padding: 6px 20px;
+      border-radius: 40px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.2s;
+      color: #2c2418;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      background: #d9b48b;
+      color: #2c2418;
+      border-color: #d9b48b;
+    }
+
+    /* галерея */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 28px;
+    }
+    .art-card {
+      background: #ffffffdb;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 24px -12px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      backdrop-filter: blur(0px);
+    }
+    .art-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 36px -16px rgba(0,0,0,0.2);
+    }
+    .art-img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .art-card:hover .art-img {
+      transform: scale(1.02);
+    }
+    .art-info {
+      padding: 18px 16px 20px;
+      background: white;
+    }
+    .art-title {
+      font-weight: 700;
+      font-size: 1.2rem;
+      font-family: 'Playfair Display', serif;
+    }
+    .art-category {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #b47c4a;
+      margin-top: 6px;
+    }
+
+    /* модальное окно для увеличенного просмотра */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.85);
+      backdrop-filter: blur(8px);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      cursor: pointer;
+    }
+    .modal-content {
+      max-width: 85vw;
+      max-height: 85vh;
+      background: #fefaf5;
+      border-radius: 32px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 25px 40px rgba(0,0,0,0.3);
+      animation: fadeUp 0.2s ease;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: scale(0.96);}
+      to { opacity: 1; transform: scale(1);}
+    }
+    .modal-img {
+      max-width: 100%;
+      max-height: 70vh;
+      object-fit: contain;
+      background: #ede3d7;
+    }
+    .modal-caption {
+      padding: 20px;
+      text-align: center;
+      font-weight: 500;
+      background: #fefaf5;
+      width: 100%;
+    }
+    .close-modal {
+      position: absolute;
+      top: 30px;
+      right: 40px;
+      color: white;
+      font-size: 42px;
+      font-weight: 300;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .close-modal:hover {
+      color: #d9b48b;
+    }
+
+    /* Обо мне */
+    .about-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 48px;
+      align-items: center;
+    }
+    .about-text {
+      flex: 1.2;
+    }
+    .about-text p {
+      margin-bottom: 1rem;
+      font-size: 1.05rem;
+      line-height: 1.5;
+      color: #3f3526;
+    }
+    .about-sign {
+      margin-top: 24px;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.3rem;
+    }
+    .about-img {
+      flex: 0.8;
+      border-radius: 32px;
+      background: #e1cfbc;
+      min-width: 200px;
+      aspect-ratio: 1 / 1.1;
+      background-image: url('https://picsum.photos/id/20/600/700');
+      background-size: cover;
+      background-position: center;
+      box-shadow: 12px 12px 0 #d9b48b40;
+    }
+
+    /* контакты */
+    .contact-info {
+      background: #f1e7de;
+      padding: 40px;
+      border-radius: 48px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 32px;
+      align-items: center;
+    }
+    .contact-details i {
+      width: 32px;
+      color: #b47c4a;
+      margin-right: 12px;
+    }
+    .contact-details p {
+      margin: 12px 0;
+    }
+    .social-links a {
+      display: inline-flex;
+      background: #2c2418;
+      color: #fefaf5;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      align-items: center;
+      justify-content: center;
+      margin: 0 8px;
+      transition: 0.2s;
+      text-decoration: none;
+    }
+    .social-links a:hover {
+      background: #b47c4a;
+      transform: translateY(-3px);
+    }
+
+    footer {
+      text-align: center;
+      padding: 32px 0;
+      font-size: 0.85rem;
+      color: #8a7a66;
+    }
+
+    @media (max-width: 780px) {
+      .container {
+        padding: 0 20px;
+      }
+      .section {
+        padding: 50px 0;
+      }
+      .header-flex {
+        flex-direction: column;
+      }
+      .hero {
+        flex-direction: column-reverse;
+        text-align: center;
+      }
+      .hero p {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      h2:after {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      h2 {
+        text-align: center;
+        display: block;
+      }
+      .about-grid {
+        flex-direction: column;
+        text-align: center;
+      }
+      .contact-info {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container header-flex">
+    <div class="logo">Anna Gray<span> ✦ illustration</span></div>
+    <ul class="nav-links">
+      <li><a href="#portfolio">Портфолио</a></li>
+      <li><a href="#about">Об авторе</a></li>
+      <li><a href="#contact">Контакты</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <!-- Hero секция -->
+  <div class="container section" style="padding-top: 40px;">
+    <div class="hero">
+      <div class="hero-content">
+        <div class="hero-tag">Книжный иллюстратор</div>
+        <h1>Оживляю истории<br> через рисунок</h1>
+        <p>Детские книги, фэнтези, современная проза — создаю уникальный визуальный мир для каждого текста.</p>
+        <a href="#portfolio" class="btn">Смотреть работы <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="hero-avatar"></div>
+    </div>
+  </div>
+
+  <!-- Портфолио с фильтрами -->
+  <div id="portfolio" class="container section">
+    <h2>Избранные иллюстрации</h2>
+    <div class="filter-buttons">
+      <button class="filter-btn active" data-filter="all">Все работы</button>
+      <button class="filter-btn" data-filter="children">Детские книги</button>
+      <button class="filter-btn" data-filter="fantasy">Фэнтези / эпос</button>
+      <button class="filter-btn" data-filter="classic">Классика</button>
+    </div>
+    <div class="gallery" id="galleryContainer"></div>
+  </div>
+
+  <!-- Об авторе -->
+  <div id="about" class="container section">
+    <div class="about-grid">
+      <div class="about-text">
+        <h2>Анна Грэй</h2>
+        <p>Здравствуйте! Я иллюстратор с более чем 8-летним опытом сотрудничества с российскими и зарубежными издательствами. Мои рисунки отличает тёплая акварельная текстура и внимание к деталям, которые создают настроение каждой книги.</p>
+        <p>Лауреат конкурса «Образ книги» (2022), участница ярмарки Non/fiction. Верю, что иллюстрация — это диалог между автором и читателем, где можно говорить без слов.</p>
+        <div class="about-sign">— Анна Грэй</div>
+      </div>
+      <div class="about-img"></div>
+    </div>
+  </div>
+
+  <!-- Контакты -->
+  <div id="contact" class="container section">
+    <h2>Сотрудничество</h2>
+    <div class="contact-info">
+      <div class="contact-details">
+        <p><i class="fas fa-envelope"></i> anna.gray@illustration.com</p>
+        <p><i class="fab fa-telegram"></i> @anna_gray_art</p>
+        <p><i class="fas fa-phone-alt"></i> +7 999 123-45-67</p>
+      </div>
+      <div class="social-links">
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="Behance"><i class="fab fa-behance"></i></a>
+        <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <p>© 2025 Анна Грэй — иллюстратор книг. Все права защищены.</p>
+  </div>
+</footer>
+
+<!-- модальное окно для просмотра изображений -->
+<div id="imageModal" class="modal">
+  <span class="close-modal">&times;</span>
+  <div class="modal-content">
+    <img class="modal-img" id="modalImg" src="" alt="illustration">
+    <div class="modal-caption" id="modalCaption"></div>
+  </div>
+</div>
+
+<script>
+  // ----- БАЗА ДАННЫХ ИЛЛЮСТРАЦИЙ -----
+  const illustrations = [
+    { id: 1, title: "Сказки старого леса", category: "children", img: "https://picsum.photos/id/104/500/380", desc: "Акварель, 2024 — для сборника сказок" },
+    { id: 2, title: "Кот в сапогах", category: "children", img: "https://picsum.photos/id/112/500/380", desc: "Персонажная иллюстрация, детская классика" },
+    { id: 3, title: "Лунный дракон", category: "fantasy", img: "https://picsum.photos/id/119/500/380", desc: "Эпизод фэнтези-романа «Хроники Эридора»" },
+    { id: 4, title: "Мастер и Маргарита", category: "classic", img: "https://picsum.photos/id/20/500/380", desc: "Черно-белая графика к юбилейному изданию" },
+    { id: 5, title: "Подводное королевство", category: "fantasy", img: "https://picsum.photos/id/96/500/380", desc: "Морская тема, гуашь и цифровая доработка" },
+    { id: 6, title: "Приключения Чиполлино", category: "children", img: "https://picsum.photos/id/127/500/380", desc: "Яркая обложка для переиздания" },
+    { id: 7, title: "Герой нашего времени", category: "classic", img: "https://picsum.photos/id/128/500/380", desc: "Печорин — портрет и атмосфера" },
+    { id: 8, title: "Спящая красавица", category: "fantasy", img: "https://picsum.photos/id/169/500/380", desc: "Мистический лес, смешанная техника" },
+    { id: 9, title: "Винни Пух и все-все-все", category: "children", img: "https://picsum.photos/id/141/500/380", desc: "Трогательный эскиз для новой книги" },
+    { id: 10, title: "Божественная комедия", category: "classic", img: "https://picsum.photos/id/158/500/380", desc: "Серия монохромных иллюстраций, тушь" }
+  ];
+
+  // DOM элементы
+  const galleryContainer = document.getElementById('galleryContainer');
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  let currentFilter = 'all';
+
+  // Функция отрисовки галереи
+  function renderGallery(filterValue) {
+    let filteredArts = illustrations;
+    if (filterValue !== 'all') {
+      filteredArts = illustrations.filter(item => item.category === filterValue);
+    }
+
+    if (galleryContainer) {
+      galleryContainer.innerHTML = '';
+      filteredArts.forEach(art => {
+        const card = document.createElement('div');
+        card.className = 'art-card';
+        card.setAttribute('data-id', art.id);
+        // HTML структура карточки
+        card.innerHTML = `
+          <img class="art-img" src="${art.img}" alt="${art.title}" loading="lazy">
+          <div class="art-info">
+            <div class="art-title">${art.title}</div>
+            <div class="art-category">${getCategoryLabel(art.category)}</div>
+          </div>
+        `;
+        // Открытие модального окна по клику
+        card.addEventListener('click', (e) => {
+          e.stopPropagation();
+          openModal(art);
+        });
+        galleryContainer.appendChild(card);
+      });
+    }
+  }
+
+  function getCategoryLabel(cat) {
+    if (cat === 'children') return '📖 Детская книга';
+    if (cat === 'fantasy') return '✨ Фэнтези';
+    if (cat === 'classic') return '🖋 Классика';
+    return 'Иллюстрация';
+  }
+
+  // Модальное окно
+  const modal = document.getElementById('imageModal');
+  const modalImg = document.getElementById('modalImg');
+  const modalCaption = document.getElementById('modalCaption');
+  const closeModalBtn = document.querySelector('.close-modal');
+
+  function openModal(art) {
+    modal.style.display = 'flex';
+    modalImg.src = art.img;
+    modalImg.alt = art.title;
+    modalCaption.innerHTML = `<strong>${art.title}</strong><br>${art.desc} | ${getCategoryLabel(art.category)}`;
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+  }
+
+  // закрытие по клику на фон или крестик
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal || e.target === closeModalBtn) {
+      closeModal();
+    }
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.style.display === 'flex') {
+      closeModal();
+    }
+  });
+
+  // Фильтрация: активная кнопка
+  function setActiveFilter(selected) {
+    filterBtns.forEach(btn => {
+      if (btn.getAttribute('data-filter') === selected) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+  }
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filterValue = btn.getAttribute('data-filter');
+      currentFilter = filterValue;
+      renderGallery(currentFilter);
+      setActiveFilter(currentFilter);
+    });
+  });
+
+  // Инициализация галереи при загрузке
+  renderGallery('all');
+
+  // плавная прокрутка для навигации
+  document.querySelectorAll('.nav-links a, .btn[href="#portfolio"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      if (href && href.startsWith('#')) {
+        e.preventDefault();
+        const targetId = href.substring(1);
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    });
+  });
+
+  // дополнительная обработка для кнопки hero
+  const heroBtn = document.querySelector('.hero .btn');
+  if(heroBtn) {
+    heroBtn.addEventListener('click', (e) => {
+      const target = document.getElementById('portfolio');
+      if(target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+
+  // легкий эффект появления карточек (необязательно)
+  if (window.innerWidth > 768) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.art-card').forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(18px)';
+      card.style.transition = 'opacity 0.5s ease, transform 0.4s ease';
+      observer.observe(card);
+    });
+    setTimeout(() => {
+      document.querySelectorAll('.art-card').forEach(card => {
+        if(card.style.opacity === '0') card.style.opacity = '1';
+        if(card.style.transform === 'translateY(18px)') card.style.transform = 'translateY(0)';
+      });
+    }, 200);
+  }
+</script>
+</body>
+</html>
